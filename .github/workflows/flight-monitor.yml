@@ -1,0 +1,29 @@
+name: 機票監控
+
+on:
+  schedule:
+    # 台灣時間(UTC+8,全年無夏令時間)10:00 -> UTC 02:00
+    - cron: "0 2 * * *"
+    # 台灣時間 20:00 -> UTC 12:00
+    - cron: "0 12 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  check-flights:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run flight monitor
+        env:
+          SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+        run: python -m flight_monitor.main

@@ -1,0 +1,121 @@
+origin: TPE
+
+trips:
+  - name: "第一梯次(農曆年)"
+    range_start: "2027-02-03"
+    range_end: "2027-02-11"
+    preferred_start: "2027-02-04"
+    preferred_end: "2027-02-10"
+  - name: "第二梯次(清明)"
+    range_start: "2027-04-01"
+    range_end: "2027-04-08"
+    preferred_start: "2027-04-03"
+    preferred_end: "2027-04-06"
+
+duration_min_days: 4
+duration_max_days: 7
+
+budget_min_twd: 4000
+budget_max_twd: 18000
+
+direct_only: true
+top_n: 3
+
+# 每個目的地最多嘗試幾組出發/回程日期組合(優先窗口內的組合會排在前面優先被查)。
+# 數字越大越完整,但 API 呼叫量與費用也越高。
+max_date_combos_per_destination: 3
+
+# 目的地清單可自由增刪,只需要 code(機場代碼)、name(中文名)、lat/lon(供天氣估算用)
+destinations:
+  - code: OKA
+    name: "沖繩"
+    lat: 26.2124
+    lon: 127.6809
+  - code: FUK
+    name: "福岡"
+    lat: 33.5859
+    lon: 130.4501
+  - code: NGO
+    name: "名古屋"
+    lat: 35.2551
+    lon: 136.9245
+  - code: KIX
+    name: "大阪"
+    lat: 34.6413
+    lon: 135.2306
+  - code: NRT
+    name: "東京(成田)"
+    lat: 35.7720
+    lon: 140.3929
+  - code: HND
+    name: "東京(羽田)"
+    lat: 35.5494
+    lon: 139.7798
+  - code: ICN
+    name: "首爾(仁川)"
+    lat: 37.4602
+    lon: 126.4407
+  - code: PUS
+    name: "釜山"
+    lat: 35.1795
+    lon: 128.9382
+  - code: HKG
+    name: "香港"
+    lat: 22.3080
+    lon: 113.9185
+  - code: MFM
+    name: "澳門"
+    lat: 22.1496
+    lon: 113.5915
+  - code: MNL
+    name: "馬尼拉"
+    lat: 14.5086
+    lon: 121.0198
+  - code: CEB
+    name: "宿霧"
+    lat: 10.3075
+    lon: 123.9789
+  - code: KLO
+    name: "卡地克蘭(長灘島)"
+    lat: 11.9674
+    lon: 122.3763
+  - code: HAN
+    name: "河內"
+    lat: 21.2212
+    lon: 105.8072
+  - code: SGN
+    name: "胡志明市"
+    lat: 10.8188
+    lon: 106.6520
+  - code: DAD
+    name: "峴港"
+    lat: 16.0439
+    lon: 108.1994
+  - code: CXR
+    name: "芽莊"
+    lat: 11.9982
+    lon: 109.2194
+  - code: BKK
+    name: "曼谷(蘇凡納布)"
+    lat: 13.6900
+    lon: 100.7501
+  - code: DMK
+    name: "曼谷(廊曼)"
+    lat: 13.9126
+    lon: 100.6068
+  - code: KUL
+    name: "吉隆坡"
+    lat: 2.7456
+    lon: 101.7099
+  - code: SIN
+    name: "新加坡"
+    lat: 1.3644
+    lon: 103.9915
+  - code: XMN
+    name: "廈門"
+    lat: 24.5440
+    lon: 118.1274
+  - code: GUM
+    name: "關島"
+    lat: 13.4834
+    lon: 144.7960
