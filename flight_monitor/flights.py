@@ -85,6 +85,44 @@ class FlightOption:
                 return True
         return False
 
+    def to_cache_dict(self):
+        return {
+            "destination_code": self.destination_code,
+            "depart_date": self.depart_date.isoformat(),
+            "return_date": self.return_date.isoformat(),
+            "duration_days": self.duration_days,
+            "price_twd": self.price_twd,
+            "airline": self.airline,
+            "outbound_depart_time": self.outbound_depart_time.isoformat() if self.outbound_depart_time else None,
+            "outbound_arrive_time": self.outbound_arrive_time.isoformat() if self.outbound_arrive_time else None,
+            "return_depart_time": self.return_depart_time.isoformat() if self.return_depart_time else None,
+            "return_arrive_time": self.return_arrive_time.isoformat() if self.return_arrive_time else None,
+            "has_checked_baggage": self.has_checked_baggage,
+            "google_flights_url": self.google_flights_url,
+            "notes": self.notes,
+        }
+
+    @classmethod
+    def from_cache_dict(cls, d):
+        def parse_dt(s):
+            return datetime.datetime.fromisoformat(s) if s else None
+
+        return cls(
+            destination_code=d["destination_code"],
+            depart_date=datetime.date.fromisoformat(d["depart_date"]),
+            return_date=datetime.date.fromisoformat(d["return_date"]),
+            duration_days=d["duration_days"],
+            price_twd=d["price_twd"],
+            airline=d["airline"],
+            outbound_depart_time=parse_dt(d["outbound_depart_time"]),
+            outbound_arrive_time=parse_dt(d["outbound_arrive_time"]),
+            return_depart_time=parse_dt(d["return_depart_time"]),
+            return_arrive_time=parse_dt(d["return_arrive_time"]),
+            has_checked_baggage=d["has_checked_baggage"],
+            google_flights_url=d["google_flights_url"],
+            notes=d.get("notes", ""),
+        )
+
 
 def _parse_dt(s):
     if not s:

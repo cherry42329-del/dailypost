@@ -17,18 +17,34 @@ IG自動排程工具
 
 監控的日期區間、預算、目的地清單都可以直接編輯 [`config.yaml`](./config.yaml)。
 
-### ⚠️ 費用與額度提醒
+### ⚠️ 費用與額度提醒 / 免費方案模式
 
 這是「不指定單一目的地、從候選城市清單裡找最佳選項」的搜尋方式,呼叫量會隨目的地數量與每個
-目的地嘗試的日期組合數增加。Google Flights 來回票查詢在 SerpApi 需要 2 次 API 呼叫(去程 + 回程)。
-以預設設定(約23個目的地 x 每個目的地最多3組日期 x 2個梯次 x 每天2次)估算,**每天可能消耗數百次
-SerpApi 查詢**,遠超過 SerpApi 免費方案的 100 次/月額度,需要訂閱付費方案
-(參考 [SerpApi 定價](https://serpapi.com/pricing))。
+目的地嘗試的日期組合數增加,而 Google Flights 來回票查詢在 SerpApi 每組都要 2 次 API 呼叫
+(去程 token + 回程 token)。若每次執行都把所有目的地、所有日期組合查一遍,一天內就會用掉數百次
+額度,遠超過 SerpApi 免費方案的 **100 次/月**。
 
-若想降低費用,可以調整 `config.yaml` 中的:
-- `destinations`:減少候選目的地數量
-- `max_date_combos_per_destination`:減少每個目的地嘗試的日期組合數
-- 或修改 `.github/workflows/flight-monitor.yml` 的 cron,改成一天檢查1次
+**`config.yaml` 預設已經啟用 `free_tier.enabled: true`,把「推播頻率」跟「實際刷新價格頻率」拆開:**
+
+- 通知依然是台灣時間 **10:00 / 20:00 各推播一次**,滿足「一天檢查2次」的需求
+- 但只有 **10:00 那次**會真的呼叫 SerpApi 刷新價格(20:00 那次用 `--no-refresh`,只重送快取內容,不佔額度)
+- 每次刷新只**輪流**更新其中 `free_tier.max_searches_per_month ÷ free_tier.refresh_runs_per_month ÷ 2`
+  個(梯次, 目的地)組合(預設算出來是 1 組),其餘沿用上次查到的價格
+- 查到的價格會存進 [`data/price_cache.json`](./data/price_cache.json),並由 workflow 自動提交回這個分支,
+  讓進度可以延續到下次執行
+- 通知內容會附註「資料更新於 X 天前」,讓你知道這筆價格的新鮮度
+
+以預設值(90次/月額度、每天1次刷新機會)估算,實際每月約消耗 **60次** SerpApi 查詢,在 100次免費
+額度內還有餘裕。代價是候選目的地清單(約23個 x 2個梯次 = 46組)完整輪過一輪大約需要 **一個半月**,
+也就是同一個目的地的價格大概每 4-6 週才會更新一次——但因為監控的是 7-9 個月後的機票,價格本來
+就不會逐日劇烈變動,這個更新頻率是合理的取捨。
+
+如果你升級了 SerpApi 付費方案,想要更即時、更全面的比較,把 `config.yaml` 的
+`free_tier.enabled` 設為 `false` 即可,系統會改回「每次都完整查詢所有目的地與日期組合」的原始模式
+(此時 `max_date_combos_per_destination` 才會生效)。也可以調整:
+- `free_tier.max_searches_per_month`:依你的 SerpApi 方案額度調整(系統會自動換算每次刷新幾組)
+- `destinations`:減少候選目的地數量,加快輪完一輪的速度
+- `.github/workflows/flight-monitor.yml` 的 cron:改變檢查次數/時間
 
 ### 設定步驟
 
@@ -61,6 +77,12 @@ python -m flight_monitor.main --mock
 
 ```bash
 python -m flight_monitor.main --no-notify
+```
+
+免費方案模式下,若只想測試「用快取資料組訊息、不刷新價格」的流程(對應 20:00 那次執行):
+
+```bash
+python -m flight_monitor.main --no-notify --no-refresh
 ```
 
 ### 已知限制

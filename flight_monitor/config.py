@@ -36,6 +36,10 @@ class Config:
     top_n: int
     max_date_combos_per_destination: int
     destinations: list
+    free_tier_enabled: bool = False
+    free_tier_max_searches_per_month: int = 90
+    free_tier_refresh_runs_per_month: int = 30
+    free_tier_cache_path: str = ""
     serpapi_api_key: str = ""
     line_channel_access_token: str = ""
     line_user_id: str = ""
@@ -65,6 +69,12 @@ def load_config(path: str = CONFIG_PATH) -> Config:
         for d in raw["destinations"]
     ]
 
+    free_tier = raw.get("free_tier", {})
+    repo_root = os.path.dirname(os.path.abspath(path))
+    cache_path = free_tier.get("cache_path", "data/price_cache.json")
+    if not os.path.isabs(cache_path):
+        cache_path = os.path.join(repo_root, cache_path)
+
     return Config(
         origin=raw["origin"],
         trips=trips,
@@ -76,6 +86,10 @@ def load_config(path: str = CONFIG_PATH) -> Config:
         top_n=raw["top_n"],
         max_date_combos_per_destination=raw["max_date_combos_per_destination"],
         destinations=destinations,
+        free_tier_enabled=free_tier.get("enabled", False),
+        free_tier_max_searches_per_month=free_tier.get("max_searches_per_month", 90),
+        free_tier_refresh_runs_per_month=free_tier.get("refresh_runs_per_month", 30),
+        free_tier_cache_path=cache_path,
         serpapi_api_key=os.environ.get("SERPAPI_API_KEY", ""),
         line_channel_access_token=os.environ.get("LINE_CHANNEL_ACCESS_TOKEN", ""),
         line_user_id=os.environ.get("LINE_USER_ID", ""),

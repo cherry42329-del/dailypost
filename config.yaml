@@ -22,8 +22,20 @@ direct_only: true
 top_n: 3
 
 # 每個目的地最多嘗試幾組出發/回程日期組合(優先窗口內的組合會排在前面優先被查)。
-# 數字越大越完整,但 API 呼叫量與費用也越高。
+# 數字越大越完整,但 API 呼叫量與費用也越高。free_tier.enabled=true 時此值會被強制視為 1。
 max_date_combos_per_destination: 3
+
+# 免費方案模式:因為 SerpApi 免費額度只有 100次/月,round-trip 查價每組要耗 2 次呼叫,
+# 沒辦法每次執行都把所有目的地查一遍。啟用後會改成「輪流刷新」:
+#   - 每天只在其中一次執行(通常是早上那次,由 workflow 的 REFRESH 環境變數控制)真的呼叫 SerpApi
+#   - 每次只刷新 items_per_run 個(trip, destination)組合,其餘沿用快取裡上次查到的價格
+#   - items_per_run 會依 max_searches_per_month / refresh_runs_per_month 自動換算,最少為1
+#   - 通知還是照原本排程 2 次/天發送,只是資料不是每次都最新(見 README 說明)
+free_tier:
+  enabled: true
+  max_searches_per_month: 90
+  refresh_runs_per_month: 30
+  cache_path: "data/price_cache.json"
 
 # 目的地清單可自由增刪,只需要 code(機場代碼)、name(中文名)、lat/lon(供天氣估算用)
 destinations:

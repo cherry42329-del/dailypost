@@ -2,11 +2,19 @@ name: 機票監控
 
 on:
   schedule:
-    # 台灣時間(UTC+8,全年無夏令時間)10:00 -> UTC 02:00
+    # 台灣時間(UTC+8,全年無夏令時間)10:00 -> UTC 02:00 ← 免費方案模式下,只有這次會真的呼叫 SerpApi 刷新價格
     - cron: "0 2 * * *"
-    # 台灣時間 20:00 -> UTC 12:00
+    # 台灣時間 20:00 -> UTC 12:00 ← 這次只用快取資料重新組訊息推播,不額外呼叫 SerpApi
     - cron: "0 12 * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      refresh:
+        description: "是否呼叫 SerpApi 刷新價格(false 則只用快取資料推播)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
 
 jobs:
   check-flights:
@@ -21,9 +29,28 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: 決定本次是否刷新價格
+        id: refresh_mode
+        run: |
+          if [ "${{ github.event.schedule }}" = "0 12 * * *" ]; then
+            echo "flag=--no-refresh" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.event.inputs.refresh }}" = "false" ]; then
+            echo "flag=--no-refresh" >> "$GITHUB_OUTPUT"
+          else
+            echo "flag=" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run flight monitor
         env:
           SERPAPI_API_KEY: ${{ secrets.SERPAPI_API_KEY }}
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
-        run: python -m flight_monitor.main
+        run: python -m flight_monitor.main ${{ steps.refresh_mode.outputs.flag }}
+
+      - name: 提交更新後的價格快取
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/price_cache.json
+          git diff --cached --quiet && echo "快取無變化,略過提交" || git commit -m "chore: 更新機票價格快取 [skip ci]"
+          git push
