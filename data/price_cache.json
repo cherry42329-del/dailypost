@@ -1,5 +1,5 @@
 {
-  "rotation_index": 1,
+  "rotation_index": 2,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -17,6 +17,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-07-31T08:58:49.532761+00:00"
+    },
+    "第一梯次(農曆年)|FUK": {
+      "destination_code": "FUK",
+      "depart_date": "2027-02-04",
+      "return_date": "2027-02-07",
+      "duration_days": 4,
+      "price_twd": 31373,
+      "airline": "台灣虎航",
+      "outbound_depart_time": "2027-02-04T06:45:00",
+      "outbound_arrive_time": "2027-02-04T10:00:00",
+      "return_depart_time": "2027-02-07T10:55:00",
+      "return_arrive_time": "2027-02-07T12:40:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTAyLTA0agcIARIDVFBFcgcIARIDRlVLGh4SCjIwMjctMDItMDdqBwgBEgNGVUtyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-01T05:32:11.041152+00:00"
     }
   }
 }
