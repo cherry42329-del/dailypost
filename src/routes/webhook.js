@@ -3,6 +3,7 @@ const { verifyToken, igBusinessAccountId } = require("../config/env");
 const { isValidSignature } = require("../services/verifySignature");
 const { findReply } = require("../services/matcher");
 const { replyToComment } = require("../services/instagram");
+const { isThrottled } = require("../services/rateLimiter");
 
 const router = express.Router();
 
@@ -47,6 +48,12 @@ async function handleComment(comment) {
 
   const reply = findReply(comment.text);
   if (!reply) return;
+
+  const commenterId = comment.from && comment.from.id;
+  if (commenterId && isThrottled(commenterId)) {
+    console.log(`已略過留言 ${comment.id}：留言者 ${commenterId} 冷卻中`);
+    return;
+  }
 
   await replyToComment(comment.id, reply);
   console.log(`已回覆留言 ${comment.id}：${reply}`);

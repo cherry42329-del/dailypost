@@ -7,4 +7,5 @@ module.exports = {
   pageAccessToken: process.env.PAGE_ACCESS_TOKEN,
   graphApiVersion: process.env.GRAPH_API_VERSION || "v21.0",
   appSecret: process.env.APP_SECRET || null,
+  cooldownMinutes: Number(process.env.COOLDOWN_MINUTES) || 10,
 };
