@@ -57,7 +57,26 @@ GET https://graph.facebook.com/v21.0/{page-id}?fields=instagram_business_account
 ### 6. 部署本專案，取得公開 HTTPS 網址
 
 Meta 的 Webhook 只接受公開的 HTTPS 網址（不能是 localhost）。
-可以部署到 Render、Railway、Fly.io、Vercel（需改寫成 serverless handler）或自己的主機 + Nginx/HTTPS 憑證。
+本專案已附上 `render.yaml`，推薦部署到 [Render](https://render.com)，步驟如下：
+
+1. 到 [render.com](https://render.com) 註冊帳號（可用 GitHub 帳號登入）
+2. 儀表板選 **New +** → **Blueprint**，選擇這個 GitHub repository（`dailypost`）
+3. Render 會讀到 `render.yaml`，自動帶入 Build Command（`npm install`）與 Start Command（`npm start`）
+4. 部署前它會請你填入標記 `sync: false` 的環境變數，也就是：
+   - `VERIFY_TOKEN`
+   - `IG_BUSINESS_ACCOUNT_ID`
+   - `PAGE_ACCESS_TOKEN`
+   - `APP_SECRET`
+
+   這幾個是機密資料，不會存在程式碼或 GitHub 上，只存在 Render 的環境變數設定裡。
+5. 按下部署，等待建置完成後，會拿到一個網址，例如 `https://dailypost-ig-autoreply.onrender.com`
+6. 這個網址加上 `/webhook`（例如 `https://dailypost-ig-autoreply.onrender.com/webhook`）就是下一步要填給 Meta 的 Callback URL
+
+> **免費方案會在沒有流量時自動休眠**，休眠後第一個請求要等 30~50 秒才會醒來，
+> 期間如果剛好有留言進來，可能會因為 Meta 等待逾時而錯過那則自動回覆。
+> 測試階段用免費方案沒問題；正式上線建議升級到付費方案（Starter，約 US$7/月），讓服務保持常駐、不休眠。
+
+如果不想用 Render，也可以部署到 Railway、Fly.io，或自己的主機 + Nginx/HTTPS 憑證，原理都一樣：需要一個能公開存取的 HTTPS 網址指到這個 Express 伺服器。
 
 ### 7. 到 Meta App 後台設定 Webhook
 
