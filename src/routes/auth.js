@@ -1,6 +1,6 @@
 const express = require("express");
 const axios = require("axios");
-const { igAppId, appSecret, igRedirectUri } = require("../config/env");
+const { igAppId, igAppSecret, igRedirectUri } = require("../config/env");
 
 const router = express.Router();
 
@@ -20,7 +20,7 @@ router.get("/callback", async (req, res) => {
       "https://api.instagram.com/oauth/access_token",
       new URLSearchParams({
         client_id: igAppId,
-        client_secret: appSecret,
+        client_secret: igAppSecret,
         grant_type: "authorization_code",
         redirect_uri: igRedirectUri,
         code,
@@ -32,7 +32,7 @@ router.get("/callback", async (req, res) => {
     const longLived = await axios.get("https://graph.instagram.com/access_token", {
       params: {
         grant_type: "ig_exchange_token",
-        client_secret: appSecret,
+        client_secret: igAppSecret,
         access_token: shortLivedToken,
       },
     });

@@ -35,9 +35,12 @@ Instagram 專業帳號必須連結一個 Facebook 粉絲專頁（Page）。
 2. 建立新的 App，類型選擇「Business」
 3. 「新增使用案例」時選擇 **「管理 Instagram 的訊息和內容」**（不是 Threads API，也不是 Facebook 登入）
 4. 在使用案例底下的權限清單，把 `instagram_business_basic`、`instagram_business_manage_comments`、`instagram_business_manage_messages` 都加進去（頁面上有「Add all required permissions」按鈕可以一次加完）
-5. 記下 App 後台首頁顯示的 **應用程式編號（App ID）**，等等會用到
 
 這是目前 Meta 主推的「Instagram API with Instagram Login」新流程，不需要另外處理 Facebook Page Access Token 的轉換，Token 直接綁在你的 IG 帳號上。
+
+> **注意有兩組不同的 App ID / Secret，不要搞混：**
+> - App 後台「設定 → 基本資料」看到的**應用程式編號 / App Secret**：只用來驗證 webhook 請求簽章（對應 `.env` 的 `APP_SECRET`）
+> - 「使用案例 → 管理 Instagram 的訊息和內容 → 自訂」那頁看到的**Instagram 應用程式編號 / Instagram 應用程式密鑰**：OAuth 換 token 要用這組（對應 `.env` 的 `IG_APP_ID`、`IG_APP_SECRET`），第 6 步會用到
 
 #### 4. 部署本專案，取得公開 HTTPS 網址
 
@@ -51,10 +54,9 @@ Meta 的 Webhook 和 Instagram Business Login 的回呼網址都只接受公開�
 3. Render 會讀到 `render.yaml`，自動帶入 Build Command（`npm install`）與 Start Command（`npm start`）
 4. 部署前它會請你填入標記 `sync: false` 的環境變數，也就是：
    - `VERIFY_TOKEN`（自己隨意設一組字串）
-   - `IG_APP_ID`（步驟 3 記下的 App ID）
-   - `APP_SECRET`（App 後台「設定 → 基本資料」裡的 App Secret）
-   - `IG_REDIRECT_URI`（先填 `https://你的網址/auth/callback`，網址還沒拿到可以部署完再回來補）
-   - `IG_BUSINESS_ACCOUNT_ID`、`IG_ACCESS_TOKEN`（這兩個現在還沒有，等第 6 步授權完再回來補上）
+   - `APP_SECRET`（App 後台「設定 → 基本資料」裡的 App Secret，只給 webhook 簽章驗證用）
+   - `IG_APP_ID`、`IG_APP_SECRET`、`IG_REDIRECT_URI`（這三個現在還沒有，等第 6 步再回來補上）
+   - `IG_BUSINESS_ACCOUNT_ID`、`IG_ACCESS_TOKEN`（這兩個現在也還沒有，等第 6 步授權完再回來補上）
 
    這幾個是機密資料，不會存在程式碼或 GitHub 上，只存在 Render 的環境變數設定裡。
 5. 按下部署，等待建置完成後，會拿到一個網址，例如 `https://dailypost-ig-autoreply.onrender.com`
@@ -76,15 +78,16 @@ App 還在「開發模式」時，只有加進測試人員名單的 Instagram �
 
 #### 6. 設定回呼網址並取得 Access Token
 
-1. App 後台 → Instagram → API 設定（API setup with Instagram login）
-2. 在「Business login settings」找到 **回呼網址（Redirect callback URLs）**，填入 `https://你的網址/auth/callback`（要跟 Render 環境變數 `IG_REDIRECT_URI` 完全一致）
-3. 同一頁通常會有「產生權杖（Generate token）」的按鈕，點下去、用步驟 5 加入的 Instagram 帳號登入授權
-4. 授權成功後會被導回 `/auth/callback`，本專案的伺服器會自動把授權碼換成正式的 Access Token，畫面上會直接顯示：
+1. App 後台 → 使用案例 → 「管理 Instagram 的訊息和內容」→ **自訂（Customize）**
+2. 這頁上方會看到 **Instagram 應用程式編號** 和 **Instagram 應用程式密鑰**（密鑰通常要點一下才會顯示），分別填進 Render 的 `IG_APP_ID`、`IG_APP_SECRET`
+3. 往下捲找到「Business login settings」，在 **回呼網址（Redirect callback URLs）** 填入 `https://你的網址/auth/callback`（要跟 Render 環境變數 `IG_REDIRECT_URI` 完全一致）
+4. 同一頁通常會有「產生權杖（Generate token）」的按鈕，點下去、用步驟 5 加入的 Instagram 帳號登入授權
+5. 授權成功後會被導回 `/auth/callback`，本專案的伺服器會自動把授權碼換成正式的 Access Token，畫面上會直接顯示：
    - `IG_BUSINESS_ACCOUNT_ID`
    - `IG_ACCESS_TOKEN`
-5. 把這兩個值填回 Render 的環境變數，存檔後 Render 會自動重新部署
+6. 把這兩個值也填回 Render 的環境變數，存檔後 Render 會自動重新部署
 
-這組 Access Token 是長效的（約 60 天），到期前重新走一次第 3-4 步就能換到新的。
+這組 Access Token 是長效的（約 60 天），到期前重新走一次第 4-5 步就能換到新的。
 
 #### 7. 到 Meta App 後台設定 Webhook
 
@@ -110,8 +113,9 @@ cp .env.example .env
 | `VERIFY_TOKEN` | 自訂字串，要跟 Meta 後台 Webhook 設定的一致 |
 | `IG_BUSINESS_ACCOUNT_ID` | 步驟 6 授權完成後取得的 IG 帳號 ID |
 | `IG_ACCESS_TOKEN` | 步驟 6 授權完成後取得的長效 Access Token |
-| `IG_APP_ID` | App 後台首頁顯示的應用程式編號 |
-| `APP_SECRET` | Meta App 的 App Secret，驗證 webhook 請求來源、OAuth 交換 token 都會用到 |
+| `IG_APP_ID` | 「使用案例 → 自訂」頁面顯示的 Instagram 應用程式編號（不是「基本資料」那組） |
+| `IG_APP_SECRET` | 同一頁的 Instagram 應用程式密鑰，OAuth 交換 token 用 |
+| `APP_SECRET` | App 後台「設定 → 基本資料」的 App Secret，只用來驗證 webhook 請求簽章 |
 | `IG_REDIRECT_URI` | Instagram Business Login 的回呼網址，要跟 App 後台設定的一致 |
 | `GRAPH_API_VERSION` | Graph API 版本，預設 `v21.0` |
 | `COOLDOWN_MINUTES` | 同一位留言者幾分鐘內只回覆一次，預設 10 分鐘 |
