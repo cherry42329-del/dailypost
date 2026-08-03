@@ -1,6 +1,7 @@
 const express = require("express");
 const { port } = require("./config/env");
 const webhookRouter = require("./routes/webhook");
+const authRouter = require("./routes/auth");
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/webhook", webhookRouter);
+app.use("/auth", authRouter);
 
 app.listen(port, () => {
   console.log(`伺服器已啟動，監聽埠號 ${port}`);

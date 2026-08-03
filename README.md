@@ -33,48 +33,32 @@ Instagram 專業帳號必須連結一個 Facebook 粉絲專頁（Page）。
 
 1. 前往 [Meta for Developers](https://developers.facebook.com/) 並登入
 2. 建立新的 App，類型選擇「Business」
-3. 在 App 內加入 **Instagram Graph API** 這個產品
+3. 「新增使用案例」時選擇 **「管理 Instagram 的訊息和內容」**（不是 Threads API，也不是 Facebook 登入）
+4. 在使用案例底下的權限清單，把 `instagram_business_basic`、`instagram_business_manage_comments`、`instagram_business_manage_messages` 都加進去（頁面上有「Add all required permissions」按鈕可以一次加完）
+5. 記下 App 後台首頁顯示的 **應用程式編號（App ID）**，等等會用到
 
-#### 4. 取得 Page Access Token
+這是目前 Meta 主推的「Instagram API with Instagram Login」新流程，不需要另外處理 Facebook Page Access Token 的轉換，Token 直接綁在你的 IG 帳號上。
 
-1. 到 App 的 Graph API Explorer，或使用 OAuth 流程取得權限
-2. 需要申請的權限（permissions）至少包含：
-   - `instagram_basic`
-   - `instagram_manage_comments`
-   - `pages_show_list`
-   - `pages_read_engagement`
-3. 用取得的使用者 token 換取「粉絲專頁」的 Page Access Token（該粉絲專頁需已連結你的 IG 帳號）
-4. 建議申請「永久有效」的 Token（Long-Lived Page Access Token），一般用戶測試階段的 token 只有短期效期
+#### 4. 部署本專案，取得公開 HTTPS 網址
 
-> 這階段如果 App 還在「開發模式」，只有你自己（App 角色成員）能測試；
-> 要正式給其他 IG 帳號使用，需要送交 Meta 的 App 審核（App Review），
-> 審核 `instagram_manage_comments` 權限時需提供操作示範影片與使用情境說明。
+Instagram Business Login 的回呼網址、以及後面 Webhook 的 Callback URL，都需要一個公開的 HTTPS 網址（不能是 localhost），所以要先部署好。
 
-#### 5. 取得 Instagram 專業帳號 ID
-
-可透過 Graph API 呼叫：
-```
-GET https://graph.facebook.com/v21.0/{page-id}?fields=instagram_business_account&access_token={page-access-token}
-```
-回傳的 `instagram_business_account.id` 就是 `IG_BUSINESS_ACCOUNT_ID`。
-
-#### 6. 部署本專案，取得公開 HTTPS 網址
-
-Meta 的 Webhook 只接受公開的 HTTPS 網址（不能是 localhost）。
+Meta 的 Webhook 和 Instagram Business Login 的回呼網址都只接受公開的 HTTPS 網址（不能是 localhost）。
 本專案已附上 `render.yaml`，推薦部署到 [Render](https://render.com)，步驟如下：
 
 1. 到 [render.com](https://render.com) 註冊帳號（可用 GitHub 帳號登入）
 2. 儀表板選 **New +** → **Blueprint**，選擇這個 GitHub repository（`dailypost`）
 3. Render 會讀到 `render.yaml`，自動帶入 Build Command（`npm install`）與 Start Command（`npm start`）
 4. 部署前它會請你填入標記 `sync: false` 的環境變數，也就是：
-   - `VERIFY_TOKEN`
-   - `IG_BUSINESS_ACCOUNT_ID`
-   - `PAGE_ACCESS_TOKEN`
-   - `APP_SECRET`
+   - `VERIFY_TOKEN`（自己隨意設一組字串）
+   - `IG_APP_ID`（步驟 3 記下的 App ID）
+   - `APP_SECRET`（App 後台「設定 → 基本資料」裡的 App Secret）
+   - `IG_REDIRECT_URI`（先填 `https://你的網址/auth/callback`，網址還沒拿到可以部署完再回來補）
+   - `IG_BUSINESS_ACCOUNT_ID`、`IG_ACCESS_TOKEN`（這兩個現在還沒有，等第 6 步授權完再回來補上）
 
    這幾個是機密資料，不會存在程式碼或 GitHub 上，只存在 Render 的環境變數設定裡。
 5. 按下部署，等待建置完成後，會拿到一個網址，例如 `https://dailypost-ig-autoreply.onrender.com`
-6. 這個網址加上 `/webhook`（例如 `https://dailypost-ig-autoreply.onrender.com/webhook`）就是下一步要填給 Meta 的 Callback URL
+6. 回 Render 的環境變數設定，把 `IG_REDIRECT_URI` 補成 `https://dailypost-ig-autoreply.onrender.com/auth/callback`（用你自己實際拿到的網址）
 
 > **免費方案會在沒有流量時自動休眠**，休眠後第一個請求要等 30~50 秒才會醒來，
 > 期間如果剛好有留言進來，可能會因為 Meta 等待逾時而錯過那則自動回覆。
@@ -82,11 +66,31 @@ Meta 的 Webhook 只接受公開的 HTTPS 網址（不能是 localhost）。
 
 如果不想用 Render，也可以部署到 Railway、Fly.io，或自己的主機 + Nginx/HTTPS 憑證，原理都一樣：需要一個能公開存取的 HTTPS 網址指到這個 Express 伺服器。
 
+#### 5. 新增 Instagram 測試人員
+
+App 還在「開發模式」時，只有加進測試人員名單的 Instagram 帳號才能通過授權，不然會看到「開發人員角色不足」的錯誤。
+
+1. App 後台左側選單 → **應用程式角色（App roles）** → **角色（Roles）**
+2. 找到 **Instagram 測試人員（Instagram Testers）**分頁，新增你自己的 Instagram 帳號
+3. 打開手機 Instagram App → 個人檔案 → 設定與隱私 → 找「測試邀請（Tester Invites）」，接受剛剛的邀請
+
+#### 6. 設定回呼網址並取得 Access Token
+
+1. App 後台 → Instagram → API 設定（API setup with Instagram login）
+2. 在「Business login settings」找到 **回呼網址（Redirect callback URLs）**，填入 `https://你的網址/auth/callback`（要跟 Render 環境變數 `IG_REDIRECT_URI` 完全一致）
+3. 同一頁通常會有「產生權杖（Generate token）」的按鈕，點下去、用步驟 5 加入的 Instagram 帳號登入授權
+4. 授權成功後會被導回 `/auth/callback`，本專案的伺服器會自動把授權碼換成正式的 Access Token，畫面上會直接顯示：
+   - `IG_BUSINESS_ACCOUNT_ID`
+   - `IG_ACCESS_TOKEN`
+5. 把這兩個值填回 Render 的環境變數，存檔後 Render 會自動重新部署
+
+這組 Access Token 是長效的（約 60 天），到期前重新走一次第 3-4 步就能換到新的。
+
 #### 7. 到 Meta App 後台設定 Webhook
 
 1. App 後台 → Webhooks → 選擇 Instagram
 2. Callback URL 填：`https://你的網域/webhook`
-3. Verify Token 填一組你自訂的字串（要跟 `.env` 裡的 `VERIFY_TOKEN` 一致）
+3. Verify Token 填一組你自訂的字串（要跟 Render 環境變數 `VERIFY_TOKEN` 一致）
 4. 訂閱欄位（Subscription Fields）勾選 `comments`
 
 Meta 會發送一次 GET 請求驗證你的網址，驗證成功後才能開始接收留言事件。
@@ -103,11 +107,13 @@ cp .env.example .env
 | 變數 | 說明 |
 |---|---|
 | `PORT` | 伺服器埠號，預設 3000 |
-| `VERIFY_TOKEN` | 自訂字串，要跟 Meta 後台設定的一致 |
-| `IG_BUSINESS_ACCOUNT_ID` | 步驟 5 取得的 IG 專業帳號 ID |
-| `PAGE_ACCESS_TOKEN` | 步驟 4 取得的 Page Access Token |
+| `VERIFY_TOKEN` | 自訂字串，要跟 Meta 後台 Webhook 設定的一致 |
+| `IG_BUSINESS_ACCOUNT_ID` | 步驟 6 授權完成後取得的 IG 帳號 ID |
+| `IG_ACCESS_TOKEN` | 步驟 6 授權完成後取得的長效 Access Token |
+| `IG_APP_ID` | App 後台首頁顯示的應用程式編號 |
+| `APP_SECRET` | Meta App 的 App Secret，驗證 webhook 請求來源、OAuth 交換 token 都會用到 |
+| `IG_REDIRECT_URI` | Instagram Business Login 的回呼網址，要跟 App 後台設定的一致 |
 | `GRAPH_API_VERSION` | Graph API 版本，預設 `v21.0` |
-| `APP_SECRET` | Meta App 的 App Secret，用來驗證 webhook 請求來源，強烈建議設定 |
 | `COOLDOWN_MINUTES` | 同一位留言者幾分鐘內只回覆一次，預設 10 分鐘 |
 
 ### 編輯自動回覆的關鍵字規則
