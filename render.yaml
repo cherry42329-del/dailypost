@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: dailypost-ig-autoreply
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: VERIFY_TOKEN
+        sync: false
+      - key: IG_BUSINESS_ACCOUNT_ID
+        sync: false
+      - key: IG_ACCESS_TOKEN
+        sync: false
+      - key: IG_APP_ID
+        sync: false
+      - key: APP_SECRET
+        sync: false
+      - key: IG_REDIRECT_URI
+        sync: false
+      - key: GRAPH_API_VERSION
+        value: v21.0
+      - key: COOLDOWN_MINUTES
+        value: "10"

@@ -1,5 +1,171 @@
 # dailypost
-IG自動排程工具
+
+IG 自動排程工具 ｜ IG 留言關鍵字自動回覆系統
+
+---
+
+## IG 留言關鍵字自動回覆系統
+
+### 這個系統做什麼
+
+當有人在你的 Instagram 貼文底下留言時，系統會自動偵測留言內容是否包含指定關鍵字，
+若有比對到，就會自動在該則留言下方回覆你預先設定好的內容。
+
+- 留言比對：關鍵字比對（可自行編輯 `config/keywords.json`）
+- 不會回覆自己帳號的留言，避免無限迴圈
+- 內建 webhook 簽章驗證，避免被冒用
+- 同一位留言者在冷卻時間內只會被回覆一次，避免被洗版留言拖垮或觸發 IG 的異常行為偵測
+
+### 事前準備（一定要先做，不然程式碼連不上 IG）
+
+Instagram 沒有開放個人帳號直接串接留言 API，需要透過 **Meta 開發者平台** 申請權限，步驟如下：
+
+#### 1. Instagram 帳號要是「專業帳號」
+
+到 Instagram App → 設定 → 帳號類型與工具，把帳號切換成 **Business（商業）** 或 **Creator（創作者）** 帳號。
+
+#### 2. 綁定一個 Facebook 粉絲專頁
+
+Instagram 專業帳號必須連結一個 Facebook 粉絲專頁（Page）。
+如果還沒有，先到 Facebook 建立一個粉絲專頁，再到 Instagram 設定裡連結它。
+
+#### 3. 建立 Meta App
+
+1. 前往 [Meta for Developers](https://developers.facebook.com/) 並登入
+2. 建立新的 App，類型選擇「Business」
+3. 「新增使用案例」時選擇 **「管理 Instagram 的訊息和內容」**（不是 Threads API，也不是 Facebook 登入）
+4. 在使用案例底下的權限清單，把 `instagram_business_basic`、`instagram_business_manage_comments`、`instagram_business_manage_messages` 都加進去（頁面上有「Add all required permissions」按鈕可以一次加完）
+5. 記下 App 後台首頁顯示的 **應用程式編號（App ID）**，等等會用到
+
+這是目前 Meta 主推的「Instagram API with Instagram Login」新流程，不需要另外處理 Facebook Page Access Token 的轉換，Token 直接綁在你的 IG 帳號上。
+
+#### 4. 部署本專案，取得公開 HTTPS 網址
+
+Instagram Business Login 的回呼網址、以及後面 Webhook 的 Callback URL，都需要一個公開的 HTTPS 網址（不能是 localhost），所以要先部署好。
+
+Meta 的 Webhook 和 Instagram Business Login 的回呼網址都只接受公開的 HTTPS 網址（不能是 localhost）。
+本專案已附上 `render.yaml`，推薦部署到 [Render](https://render.com)，步驟如下：
+
+1. 到 [render.com](https://render.com) 註冊帳號（可用 GitHub 帳號登入）
+2. 儀表板選 **New +** → **Blueprint**，選擇這個 GitHub repository（`dailypost`）
+3. Render 會讀到 `render.yaml`，自動帶入 Build Command（`npm install`）與 Start Command（`npm start`）
+4. 部署前它會請你填入標記 `sync: false` 的環境變數，也就是：
+   - `VERIFY_TOKEN`（自己隨意設一組字串）
+   - `IG_APP_ID`（步驟 3 記下的 App ID）
+   - `APP_SECRET`（App 後台「設定 → 基本資料」裡的 App Secret）
+   - `IG_REDIRECT_URI`（先填 `https://你的網址/auth/callback`，網址還沒拿到可以部署完再回來補）
+   - `IG_BUSINESS_ACCOUNT_ID`、`IG_ACCESS_TOKEN`（這兩個現在還沒有，等第 6 步授權完再回來補上）
+
+   這幾個是機密資料，不會存在程式碼或 GitHub 上，只存在 Render 的環境變數設定裡。
+5. 按下部署，等待建置完成後，會拿到一個網址，例如 `https://dailypost-ig-autoreply.onrender.com`
+6. 回 Render 的環境變數設定，把 `IG_REDIRECT_URI` 補成 `https://dailypost-ig-autoreply.onrender.com/auth/callback`（用你自己實際拿到的網址）
+
+> **免費方案會在沒有流量時自動休眠**，休眠後第一個請求要等 30~50 秒才會醒來，
+> 期間如果剛好有留言進來，可能會因為 Meta 等待逾時而錯過那則自動回覆。
+> 測試階段用免費方案沒問題；正式上線建議升級到付費方案（Starter，約 US$7/月），讓服務保持常駐、不休眠。
+
+如果不想用 Render，也可以部署到 Railway、Fly.io，或自己的主機 + Nginx/HTTPS 憑證，原理都一樣：需要一個能公開存取的 HTTPS 網址指到這個 Express 伺服器。
+
+#### 5. 新增 Instagram 測試人員
+
+App 還在「開發模式」時，只有加進測試人員名單的 Instagram 帳號才能通過授權，不然會看到「開發人員角色不足」的錯誤。
+
+1. App 後台左側選單 → **應用程式角色（App roles）** → **角色（Roles）**
+2. 找到 **Instagram 測試人員（Instagram Testers）**分頁，新增你自己的 Instagram 帳號
+3. 打開手機 Instagram App → 個人檔案 → 設定與隱私 → 找「測試邀請（Tester Invites）」，接受剛剛的邀請
+
+#### 6. 設定回呼網址並取得 Access Token
+
+1. App 後台 → Instagram → API 設定（API setup with Instagram login）
+2. 在「Business login settings」找到 **回呼網址（Redirect callback URLs）**，填入 `https://你的網址/auth/callback`（要跟 Render 環境變數 `IG_REDIRECT_URI` 完全一致）
+3. 同一頁通常會有「產生權杖（Generate token）」的按鈕，點下去、用步驟 5 加入的 Instagram 帳號登入授權
+4. 授權成功後會被導回 `/auth/callback`，本專案的伺服器會自動把授權碼換成正式的 Access Token，畫面上會直接顯示：
+   - `IG_BUSINESS_ACCOUNT_ID`
+   - `IG_ACCESS_TOKEN`
+5. 把這兩個值填回 Render 的環境變數，存檔後 Render 會自動重新部署
+
+這組 Access Token 是長效的（約 60 天），到期前重新走一次第 3-4 步就能換到新的。
+
+#### 7. 到 Meta App 後台設定 Webhook
+
+1. App 後台 → Webhooks → 選擇 Instagram
+2. Callback URL 填：`https://你的網域/webhook`
+3. Verify Token 填一組你自訂的字串（要跟 Render 環境變數 `VERIFY_TOKEN` 一致）
+4. 訂閱欄位（Subscription Fields）勾選 `comments`
+
+Meta 會發送一次 GET 請求驗證你的網址，驗證成功後才能開始接收留言事件。
+
+### 專案設定
+
+```bash
+npm install
+cp .env.example .env
+```
+
+編輯 `.env`：
+
+| 變數 | 說明 |
+|---|---|
+| `PORT` | 伺服器埠號，預設 3000 |
+| `VERIFY_TOKEN` | 自訂字串，要跟 Meta 後台 Webhook 設定的一致 |
+| `IG_BUSINESS_ACCOUNT_ID` | 步驟 6 授權完成後取得的 IG 帳號 ID |
+| `IG_ACCESS_TOKEN` | 步驟 6 授權完成後取得的長效 Access Token |
+| `IG_APP_ID` | App 後台首頁顯示的應用程式編號 |
+| `APP_SECRET` | Meta App 的 App Secret，驗證 webhook 請求來源、OAuth 交換 token 都會用到 |
+| `IG_REDIRECT_URI` | Instagram Business Login 的回呼網址，要跟 App 後台設定的一致 |
+| `GRAPH_API_VERSION` | Graph API 版本，預設 `v21.0` |
+| `COOLDOWN_MINUTES` | 同一位留言者幾分鐘內只回覆一次，預設 10 分鐘 |
+
+### 編輯自動回覆的關鍵字規則
+
+編輯 `config/keywords.json`：
+
+```json
+{
+  "rules": [
+    { "keywords": ["價格", "多少錢"], "reply": "您好，詳細價格請私訊我們喔！" }
+  ],
+  "defaultReply": null
+}
+```
+
+- 一個留言符合任一個 `keywords` 就會回覆對應的 `reply`
+- 由上到下比對，符合第一條規則就停止
+- `defaultReply` 設成字串的話，完全沒比對到關鍵字的留言也會回覆這則預設訊息；維持 `null` 則不回覆
+
+修改後不用重啟伺服器，下一次留言進來就會套用新規則。
+
+> 冷卻機制的紀錄目前存在記憶體中，伺服器重啟會清空，多台伺服器實例部署時也不會互相同步，
+> 這對單一小規模部署已經足夠；未來若要多實例水平擴展，建議改存到 Redis 之類的共用儲存。
+
+### 啟動
+
+```bash
+npm start
+```
+
+### 測試
+
+正式串接前，可以先用假資料打自己的 `/webhook`，確認關鍵字比對邏輯正確：
+
+```bash
+curl -X POST http://localhost:3000/webhook \
+  -H "Content-Type: application/json" \
+  -d '{
+    "entry": [{
+      "id": "123",
+      "changes": [{
+        "field": "comments",
+        "value": { "id": "cid1", "text": "請問多少錢", "from": { "id": "999" } }
+      }]
+    }]
+  }'
+```
+
+（本機測試若 `.env` 有設定 `APP_SECRET`，會因為缺少簽章而回 401，屬正常行為；
+測試時可暫時不設 `APP_SECRET`，正式上線再設定回去。）
+
+---
 
 ## ✈️ 機票監控系統
 
