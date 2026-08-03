@@ -1,0 +1,56 @@
+{
+  "rotation_index": 3,
+  "entries": {
+    "第一梯次(農曆年)|OKA": {
+      "destination_code": "OKA",
+      "depart_date": "2027-02-04",
+      "return_date": "2027-02-07",
+      "duration_days": 4,
+      "price_twd": 19871,
+      "airline": "樂桃航空/台灣虎航",
+      "outbound_depart_time": "2027-02-04T15:20:00",
+      "outbound_arrive_time": "2027-02-04T17:50:00",
+      "return_depart_time": "2027-02-07T09:45:00",
+      "return_arrive_time": "2027-02-07T10:20:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTAyLTA0agcIARIDVFBFcgcIARIDT0tBGh4SCjIwMjctMDItMDdqBwgBEgNPS0FyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-07-31T08:58:49.532761+00:00"
+    },
+    "第一梯次(農曆年)|FUK": {
+      "destination_code": "FUK",
+      "depart_date": "2027-02-04",
+      "return_date": "2027-02-07",
+      "duration_days": 4,
+      "price_twd": 31373,
+      "airline": "台灣虎航",
+      "outbound_depart_time": "2027-02-04T06:45:00",
+      "outbound_arrive_time": "2027-02-04T10:00:00",
+      "return_depart_time": "2027-02-07T10:55:00",
+      "return_arrive_time": "2027-02-07T12:40:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTAyLTA0agcIARIDVFBFcgcIARIDRlVLGh4SCjIwMjctMDItMDdqBwgBEgNGVUtyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-01T05:32:11.041152+00:00"
+    },
+    "第一梯次(農曆年)|NGO": {
+      "destination_code": "NGO",
+      "depart_date": "2027-02-04",
+      "return_date": "2027-02-07",
+      "duration_days": 4,
+      "price_twd": 25840,
+      "airline": "樂桃航空",
+      "outbound_depart_time": "2027-02-04T02:55:00",
+      "outbound_arrive_time": "2027-02-04T06:25:00",
+      "return_depart_time": "2027-02-07T22:50:00",
+      "return_arrive_time": "2027-02-08T01:30:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTAyLTA0agcIARIDVFBFcgcIARIDTkdPGh4SCjIwMjctMDItMDdqBwgBEgNOR09yBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-02T05:32:48.965526+00:00"
+    }
+  }
+}
