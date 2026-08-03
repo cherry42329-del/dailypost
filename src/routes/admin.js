@@ -13,7 +13,15 @@ const router = express.Router();
 // 用 ?token= 帶入 VERIFY_TOKEN 做簡單防護，避免網址被亂猜到就能亂觸發。
 router.get("/subscribe", async (req, res) => {
   if (req.query.token !== verifyToken) {
-    return res.sendStatus(403);
+    const serverTokenSet = Boolean(verifyToken);
+    const serverTokenLength = verifyToken ? verifyToken.length : 0;
+    const givenTokenLength = req.query.token ? req.query.token.length : 0;
+    return res
+      .status(403)
+      .send(
+        `Forbidden - 伺服器有讀到 VERIFY_TOKEN：${serverTokenSet}（長度 ${serverTokenLength}），` +
+          `你網址帶的 token 長度：${givenTokenLength}`
+      );
   }
   if (!igBusinessAccountId || !igAccessToken) {
     return res
