@@ -9,5 +9,6 @@ module.exports = {
   appSecret: process.env.APP_SECRET || null,
   cooldownMinutes: Number(process.env.COOLDOWN_MINUTES) || 10,
   igAppId: process.env.IG_APP_ID,
+  igAppSecret: process.env.IG_APP_SECRET,
   igRedirectUri: process.env.IG_REDIRECT_URI,
 };
