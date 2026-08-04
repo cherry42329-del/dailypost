@@ -1,5 +1,5 @@
 {
-  "rotation_index": 4,
+  "rotation_index": 5,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -68,6 +68,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-08-03T05:45:57.106560+00:00"
+    },
+    "第一梯次(農曆年)|NRT": {
+      "destination_code": "NRT",
+      "depart_date": "2027-02-04",
+      "return_date": "2027-02-07",
+      "duration_days": 4,
+      "price_twd": 21661,
+      "airline": "台灣虎航/捷星日本航空",
+      "outbound_depart_time": "2027-02-04T15:35:00",
+      "outbound_arrive_time": "2027-02-04T19:35:00",
+      "return_depart_time": "2027-02-07T08:30:00",
+      "return_arrive_time": "2027-02-07T11:50:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTAyLTA0agcIARIDVFBFcgcIARIDTlJUGh4SCjIwMjctMDItMDdqBwgBEgNOUlRyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-04T05:18:02.738886+00:00"
     }
   }
 }
