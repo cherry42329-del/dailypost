@@ -1,5 +1,5 @@
 {
-  "rotation_index": 6,
+  "rotation_index": 7,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -102,6 +102,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-08-05T05:17:59.212769+00:00"
+    },
+    "第一梯次(農曆年)|ICN": {
+      "destination_code": "ICN",
+      "depart_date": "2027-02-04",
+      "return_date": "2027-02-07",
+      "duration_days": 4,
+      "price_twd": 16335,
+      "airline": "台灣虎航",
+      "outbound_depart_time": "2027-02-04T20:00:00",
+      "outbound_arrive_time": "2027-02-04T23:30:00",
+      "return_depart_time": "2027-02-07T00:30:00",
+      "return_arrive_time": "2027-02-07T02:15:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTAyLTA0agcIARIDVFBFcgcIARIDSUNOGh4SCjIwMjctMDItMDdqBwgBEgNJQ05yBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-06T05:19:57.825921+00:00"
     }
   }
 }
