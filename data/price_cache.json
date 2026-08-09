@@ -1,5 +1,5 @@
 {
-  "rotation_index": 9,
+  "rotation_index": 10,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -153,6 +153,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-08-08T03:35:58.306446+00:00"
+    },
+    "第一梯次(農曆年)|MFM": {
+      "destination_code": "MFM",
+      "depart_date": "2027-02-04",
+      "return_date": "2027-02-07",
+      "duration_days": 4,
+      "price_twd": 8111,
+      "airline": "長榮航空",
+      "outbound_depart_time": "2027-02-04T16:30:00",
+      "outbound_arrive_time": "2027-02-04T18:25:00",
+      "return_depart_time": "2027-02-07T13:15:00",
+      "return_arrive_time": "2027-02-07T14:55:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTAyLTA0agcIARIDVFBFcgcIARIDTUZNGh4SCjIwMjctMDItMDdqBwgBEgNNRk1yBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-09T03:46:08.573104+00:00"
     }
   }
 }
