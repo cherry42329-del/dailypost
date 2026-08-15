@@ -1,5 +1,5 @@
 {
-  "rotation_index": 15,
+  "rotation_index": 16,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -242,6 +242,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-08-14T04:10:59.694941+00:00"
+    },
+    "第一梯次(農曆年)|DAD": {
+      "destination_code": "DAD",
+      "depart_date": "2027-02-04",
+      "return_date": "2027-02-07",
+      "duration_days": 4,
+      "price_twd": 33649,
+      "airline": "星宇航空",
+      "outbound_depart_time": "2027-02-04T15:20:00",
+      "outbound_arrive_time": "2027-02-04T17:15:00",
+      "return_depart_time": "2027-02-07T18:25:00",
+      "return_arrive_time": "2027-02-07T22:10:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTAyLTA0agcIARIDVFBFcgcIARIDREFEGh4SCjIwMjctMDItMDdqBwgBEgNEQURyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-15T02:54:27.439197+00:00"
     }
   }
 }
