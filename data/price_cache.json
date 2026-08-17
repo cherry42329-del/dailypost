@@ -1,5 +1,5 @@
 {
-  "rotation_index": 17,
+  "rotation_index": 18,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -263,6 +263,23 @@
     "第一梯次(農曆年)|CXR": {
       "no_result": true,
       "checked_at": "2026-08-16T03:02:29.039677+00:00"
+    },
+    "第一梯次(農曆年)|BKK": {
+      "destination_code": "BKK",
+      "depart_date": "2027-02-04",
+      "return_date": "2027-02-07",
+      "duration_days": 4,
+      "price_twd": 16020,
+      "airline": "泰越捷航空",
+      "outbound_depart_time": "2027-02-04T15:15:00",
+      "outbound_arrive_time": "2027-02-04T18:10:00",
+      "return_depart_time": "2027-02-07T01:50:00",
+      "return_arrive_time": "2027-02-07T06:30:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTAyLTA0agcIARIDVFBFcgcIARIDQktLGh4SCjIwMjctMDItMDdqBwgBEgNCS0tyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-17T03:02:45.022970+00:00"
     }
   }
 }
