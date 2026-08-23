@@ -1,5 +1,5 @@
 {
-  "rotation_index": 23,
+  "rotation_index": 24,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -339,6 +339,23 @@
     "第一梯次(農曆年)|GUM": {
       "no_result": true,
       "checked_at": "2026-08-22T02:56:19.738240+00:00"
+    },
+    "第二梯次(清明)|OKA": {
+      "destination_code": "OKA",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 19345,
+      "airline": "泰國亞洲航空",
+      "outbound_depart_time": "2027-04-03T13:30:00",
+      "outbound_arrive_time": "2027-04-03T15:55:00",
+      "return_depart_time": "2027-04-06T16:55:00",
+      "return_arrive_time": "2027-04-06T17:30:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDT0tBGh4SCjIwMjctMDQtMDZqBwgBEgNPS0FyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-23T03:05:03.367729+00:00"
     }
   }
 }
