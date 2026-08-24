@@ -1,5 +1,5 @@
 {
-  "rotation_index": 24,
+  "rotation_index": 25,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -356,6 +356,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-08-23T03:05:03.367729+00:00"
+    },
+    "第二梯次(清明)|FUK": {
+      "destination_code": "FUK",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 22040,
+      "airline": "亞洲航空",
+      "outbound_depart_time": "2027-04-03T12:00:00",
+      "outbound_arrive_time": "2027-04-03T15:20:00",
+      "return_depart_time": "2027-04-06T16:20:00",
+      "return_arrive_time": "2027-04-06T17:50:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDRlVLGh4SCjIwMjctMDQtMDZqBwgBEgNGVUtyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-24T03:05:49.612815+00:00"
     }
   }
 }
