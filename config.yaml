@@ -1,11 +1,6 @@
 origin: TPE
 
 trips:
-  - name: "第一梯次(農曆年)"
-    range_start: "2027-02-03"
-    range_end: "2027-02-11"
-    preferred_start: "2027-02-04"
-    preferred_end: "2027-02-10"
   - name: "第二梯次(清明)"
     range_start: "2027-04-01"
     range_end: "2027-04-08"
