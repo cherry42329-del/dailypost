@@ -1,5 +1,5 @@
 {
-  "rotation_index": 26,
+  "rotation_index": 27,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -390,6 +390,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-08-25T03:01:04.919345+00:00"
+    },
+    "第二梯次(清明)|KIX": {
+      "destination_code": "KIX",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 17769,
+      "airline": "亞洲航空 X/捷星日本航空",
+      "outbound_depart_time": "2027-04-03T15:40:00",
+      "outbound_arrive_time": "2027-04-03T19:30:00",
+      "return_depart_time": "2027-04-06T23:35:00",
+      "return_arrive_time": "2027-04-07T01:30:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDS0lYGh4SCjIwMjctMDQtMDZqBwgBEgNLSVhyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-26T03:08:17.368682+00:00"
     }
   }
 }
