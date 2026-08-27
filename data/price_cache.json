@@ -1,5 +1,5 @@
 {
-  "rotation_index": 27,
+  "rotation_index": 28,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -407,6 +407,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-08-26T03:08:17.368682+00:00"
+    },
+    "第二梯次(清明)|NRT": {
+      "destination_code": "NRT",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 25357,
+      "airline": "國泰航空",
+      "outbound_depart_time": "2027-04-03T13:00:00",
+      "outbound_arrive_time": "2027-04-03T17:15:00",
+      "return_depart_time": "2027-04-06T15:45:00",
+      "return_arrive_time": "2027-04-06T18:25:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDTlJUGh4SCjIwMjctMDQtMDZqBwgBEgNOUlRyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-27T12:35:56.719391+00:00"
     }
   }
 }
