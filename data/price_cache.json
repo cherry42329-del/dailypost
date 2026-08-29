@@ -1,5 +1,5 @@
 {
-  "rotation_index": 29,
+  "rotation_index": 30,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -428,6 +428,23 @@
     "第二梯次(清明)|HND": {
       "no_result": true,
       "checked_at": "2026-08-28T14:06:54.082763+00:00"
+    },
+    "第二梯次(清明)|ICN": {
+      "destination_code": "ICN",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 14769,
+      "airline": "酷航",
+      "outbound_depart_time": "2027-04-03T18:10:00",
+      "outbound_arrive_time": "2027-04-03T21:45:00",
+      "return_depart_time": "2027-04-06T23:00:00",
+      "return_arrive_time": "2027-04-07T00:35:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDSUNOGh4SCjIwMjctMDQtMDZqBwgBEgNJQ05yBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-29T08:45:21.466079+00:00"
     }
   }
 }
