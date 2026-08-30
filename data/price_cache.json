@@ -1,5 +1,5 @@
 {
-  "rotation_index": 30,
+  "rotation_index": 31,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -445,6 +445,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-08-29T08:45:21.466079+00:00"
+    },
+    "第二梯次(清明)|PUS": {
+      "destination_code": "PUS",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 19782,
+      "airline": "大韓航空/中華航空",
+      "outbound_depart_time": "2027-04-03T12:00:00",
+      "outbound_arrive_time": "2027-04-03T15:30:00",
+      "return_depart_time": "2027-04-06T10:30:00",
+      "return_arrive_time": "2027-04-06T11:55:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDUFVTGh4SCjIwMjctMDQtMDZqBwgBEgNQVVNyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-30T08:02:45.683955+00:00"
     }
   }
 }
