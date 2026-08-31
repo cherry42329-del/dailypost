@@ -1,5 +1,5 @@
 {
-  "rotation_index": 31,
+  "rotation_index": 32,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -462,6 +462,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-08-30T08:02:45.683955+00:00"
+    },
+    "第二梯次(清明)|HKG": {
+      "destination_code": "HKG",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 8155,
+      "airline": "中華航空",
+      "outbound_depart_time": "2027-04-03T18:15:00",
+      "outbound_arrive_time": "2027-04-03T20:10:00",
+      "return_depart_time": "2027-04-06T14:05:00",
+      "return_arrive_time": "2027-04-06T15:55:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDSEtHGh4SCjIwMjctMDQtMDZqBwgBEgNIS0dyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-08-31T08:19:33.076925+00:00"
     }
   }
 }
