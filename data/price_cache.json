@@ -1,5 +1,5 @@
 {
-  "rotation_index": 34,
+  "rotation_index": 35,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -513,6 +513,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-09-02T06:56:00.291189+00:00"
+    },
+    "第二梯次(清明)|CEB": {
+      "destination_code": "CEB",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 15768,
+      "airline": "中華航空",
+      "outbound_depart_time": "2027-04-03T08:10:00",
+      "outbound_arrive_time": "2027-04-03T11:05:00",
+      "return_depart_time": "2027-04-06T12:05:00",
+      "return_arrive_time": "2027-04-06T14:55:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDQ0VCGh4SCjIwMjctMDQtMDZqBwgBEgNDRUJyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-09-03T06:59:38.163342+00:00"
     }
   }
 }
