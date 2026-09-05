@@ -1,5 +1,5 @@
 {
-  "rotation_index": 36,
+  "rotation_index": 37,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -534,6 +534,23 @@
     "第二梯次(清明)|KLO": {
       "no_result": true,
       "checked_at": "2026-09-04T07:03:43.771437+00:00"
+    },
+    "第二梯次(清明)|HAN": {
+      "destination_code": "HAN",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 7142,
+      "airline": "越捷航空",
+      "outbound_depart_time": "2027-04-03T19:00:00",
+      "outbound_arrive_time": "2027-04-03T20:55:00",
+      "return_depart_time": "2027-04-06T14:25:00",
+      "return_arrive_time": "2027-04-06T18:00:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDSEFOGh4SCjIwMjctMDQtMDZqBwgBEgNIQU5yBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-09-05T06:47:43.435106+00:00"
     }
   }
 }
