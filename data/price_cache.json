@@ -1,5 +1,5 @@
 {
-  "rotation_index": 37,
+  "rotation_index": 38,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -551,6 +551,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-09-05T06:47:43.435106+00:00"
+    },
+    "第二梯次(清明)|SGN": {
+      "destination_code": "SGN",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 7920,
+      "airline": "越捷航空",
+      "outbound_depart_time": "2027-04-03T19:00:00",
+      "outbound_arrive_time": "2027-04-03T21:25:00",
+      "return_depart_time": "2027-04-06T13:30:00",
+      "return_arrive_time": "2027-04-06T18:00:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDU0dOGh4SCjIwMjctMDQtMDZqBwgBEgNTR05yBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-09-06T06:58:01.842898+00:00"
     }
   }
 }
