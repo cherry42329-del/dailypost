@@ -1,5 +1,5 @@
 {
-  "rotation_index": 39,
+  "rotation_index": 40,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -585,6 +585,10 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-09-07T07:07:53.345471+00:00"
+    },
+    "第二梯次(清明)|CXR": {
+      "no_result": true,
+      "checked_at": "2026-09-08T07:02:13.771200+00:00"
     }
   }
 }
