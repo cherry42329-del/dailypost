@@ -1,5 +1,5 @@
 {
-  "rotation_index": 40,
+  "rotation_index": 41,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -589,6 +589,23 @@
     "第二梯次(清明)|CXR": {
       "no_result": true,
       "checked_at": "2026-09-08T07:02:13.771200+00:00"
+    },
+    "第二梯次(清明)|BKK": {
+      "destination_code": "BKK",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 11012,
+      "airline": "THAI",
+      "outbound_depart_time": "2027-04-03T18:50:00",
+      "outbound_arrive_time": "2027-04-03T21:35:00",
+      "return_depart_time": "2027-04-06T08:25:00",
+      "return_arrive_time": "2027-04-06T13:05:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDQktLGh4SCjIwMjctMDQtMDZqBwgBEgNCS0tyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-09-09T07:11:35.222561+00:00"
     }
   }
 }
