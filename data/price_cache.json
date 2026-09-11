@@ -1,5 +1,5 @@
 {
-  "rotation_index": 42,
+  "rotation_index": 43,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
@@ -623,6 +623,23 @@
       "notes": "",
       "in_preferred_window": true,
       "checked_at": "2026-09-10T07:07:31.214973+00:00"
+    },
+    "第二梯次(清明)|KUL": {
+      "destination_code": "KUL",
+      "depart_date": "2027-04-03",
+      "return_date": "2027-04-06",
+      "duration_days": 4,
+      "price_twd": 12334,
+      "airline": "Batik Air/亞洲航空 X",
+      "outbound_depart_time": "2027-04-03T00:45:00",
+      "outbound_arrive_time": "2027-04-03T05:40:00",
+      "return_depart_time": "2027-04-06T09:20:00",
+      "return_arrive_time": "2027-04-06T14:25:00",
+      "has_checked_baggage": false,
+      "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDS1VMGh4SCjIwMjctMDQtMDZqBwgBEgNLVUxyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
+      "notes": "",
+      "in_preferred_window": true,
+      "checked_at": "2026-09-11T07:07:10.249429+00:00"
     }
   }
 }
