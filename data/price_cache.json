@@ -1,12 +1,12 @@
 {
-  "rotation_index": 0,
+  "rotation_index": 1,
   "entries": {
     "第一梯次(農曆年)|OKA": {
       "destination_code": "OKA",
       "depart_date": "2027-02-04",
       "return_date": "2027-02-07",
       "duration_days": 4,
-      "price_twd": 19871,
+      "price_twd": 20316,
       "airline": "樂桃航空/台灣虎航",
       "outbound_depart_time": "2027-02-04T15:20:00",
       "outbound_arrive_time": "2027-02-04T17:50:00",
@@ -16,7 +16,7 @@
       "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTAyLTA0agcIARIDVFBFcgcIARIDT0tBGh4SCjIwMjctMDItMDdqBwgBEgNPS0FyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
       "notes": "",
       "in_preferred_window": true,
-      "checked_at": "2026-07-31T08:58:49.532761+00:00"
+      "checked_at": "2026-09-15T07:25:50.576283+00:00"
     },
     "第一梯次(農曆年)|FUK": {
       "destination_code": "FUK",
