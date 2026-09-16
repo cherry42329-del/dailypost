@@ -1,11 +1,6 @@
 origin: TPE
 
-trips:
-  - name: "第二梯次(清明)"
-    range_start: "2027-04-01"
-    range_end: "2027-04-08"
-    preferred_start: "2027-04-03"
-    preferred_end: "2027-04-06"
+trips: []
 
 duration_min_days: 4
 duration_max_days: 7
