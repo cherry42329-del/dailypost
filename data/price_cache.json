@@ -671,7 +671,7 @@
       "depart_date": "2027-04-03",
       "return_date": "2027-04-08",
       "duration_days": 6,
-      "price_twd": 9548,
+      "price_twd": 9610,
       "airline": "越捷航空",
       "outbound_depart_time": "2027-04-03T14:10:00",
       "outbound_arrive_time": "2027-04-03T16:50:00",
@@ -681,7 +681,7 @@
       "google_flights_url": "https://www.google.com/travel/flights?hl=zh-tw&gl=us&curr=TWD&tfs=CBwQAhoeEgoyMDI3LTA0LTAzagcIARIDVFBFcgcIARIDUFFDGh4SCjIwMjctMDQtMDhqBwgBEgNQUUNyBwgBEgNUUEVAAUgBcAGYAQE&tfu=EgIIAQ",
       "notes": "",
       "in_preferred_window": true,
-      "checked_at": "2026-09-30T08:10:54.217500+00:00"
+      "checked_at": "2026-10-01T08:32:15.074061+00:00"
     }
   }
 }
